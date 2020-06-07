@@ -11,11 +11,14 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    // MARK: Properties
+    static let keyForHasLaunchedBefore = "hasLaunchedBefore"
+    static let keyForMapRegion = "mapRegion"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        checkIfFirstLaunch()
         return true
     }
 
@@ -77,6 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func checkIfFirstLaunch() {
+        if !UserDefaults.standard.bool(forKey: AppDelegate.keyForHasLaunchedBefore) {
+            UserDefaults.standard.set(true, forKey: AppDelegate.keyForHasLaunchedBefore)
+            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(MapRegion(latitude: 0.0, longitude: 0.0, latitudeDelta: 70.0, longitudeDelta: 70.0)), forKey: AppDelegate.keyForMapRegion)
+        }
+    }
 
 }
-

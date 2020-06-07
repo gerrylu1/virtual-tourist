@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE390661248D2F73006E376E /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE390660248D2F73006E376E /* MapRegion.swift */; };
 		EED64E57248BD16600001E01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED64E56248BD16600001E01 /* AppDelegate.swift */; };
 		EED64E59248BD16600001E01 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED64E58248BD16600001E01 /* SceneDelegate.swift */; };
 		EED64E5B248BD16600001E01 /* TravelLocationsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED64E5A248BD16600001E01 /* TravelLocationsMapViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE390660248D2F73006E376E /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		EED64E53248BD16600001E01 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EED64E56248BD16600001E01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EED64E58248BD16600001E01 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				EED64E78248BDF6D00001E01 /* Data */,
+				EE390660248D2F73006E376E /* MapRegion.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				EED64E5B248BD16600001E01 /* TravelLocationsMapViewController.swift in Sources */,
 				EED64E57248BD16600001E01 /* AppDelegate.swift in Sources */,
 				EED64E6E248BDAAA00001E01 /* PhotoAlbumViewController.swift in Sources */,
+				EE390661248D2F73006E376E /* MapRegion.swift in Sources */,
 				EED64E59248BD16600001E01 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
