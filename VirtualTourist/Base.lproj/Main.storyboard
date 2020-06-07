@@ -30,14 +30,28 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-h6-l6A">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="uPa-g8-mWT"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6cZ-h6-l6A" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="1HT-2z-iMd"/>
+                            <constraint firstItem="6cZ-h6-l6A" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="B60-HE-hNX"/>
+                            <constraint firstItem="6cZ-h6-l6A" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="bnz-0S-ex8"/>
+                            <constraint firstItem="6cZ-h6-l6A" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sNY-Vg-YPb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="4yO-dq-u1F"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="138"/>
+            <point key="canvasLocation" x="131.8840579710145" y="137.94642857142856"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="dZ0-K2-3Hm">

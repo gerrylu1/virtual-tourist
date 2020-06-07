@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class TravelLocationsMapViewController: UIViewController {
 
@@ -14,6 +15,26 @@ class TravelLocationsMapViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+}
 
-
+extension TravelLocationsMapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.pinTintColor = .red
+        } else {
+            pinView?.annotation = annotation
+        }
+        return pinView
+    }
+    
 }
