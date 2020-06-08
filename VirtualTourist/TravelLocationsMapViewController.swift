@@ -23,6 +23,7 @@ class TravelLocationsMapViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         
         setupMapView()
+        setupGestureRecognizer()
     }
     
     fileprivate func setupMapView() {
@@ -32,6 +33,23 @@ class TravelLocationsMapViewController: UIViewController {
             let span = MKCoordinateSpan(latitudeDelta: mapRegion.latitudeDelta, longitudeDelta: mapRegion.longitudeDelta)
             let region = MKCoordinateRegion.init(center: center, span: span)
             mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    fileprivate func setupGestureRecognizer() {
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.addPin(gestureRecognizer:)))
+        mapView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc func addPin(gestureRecognizer: UITapGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            let location = gestureRecognizer.location(in: mapView)
+            let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+            // Add annotation on map
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
+            // TODO: Add annotation to context view
         }
     }
     
