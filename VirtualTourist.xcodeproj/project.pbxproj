@@ -16,6 +16,7 @@
 		EED64E63248BD16700001E01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EED64E62248BD16700001E01 /* Assets.xcassets */; };
 		EED64E66248BD16700001E01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EED64E64248BD16700001E01 /* LaunchScreen.storyboard */; };
 		EED64E6E248BDAAA00001E01 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED64E6D248BDAAA00001E01 /* PhotoAlbumViewController.swift */; };
+		EEF4071D248E965500FC66CE /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF4071C248E965500FC66CE /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		EED64E65248BD16700001E01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EED64E67248BD16700001E01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EED64E6D248BDAAA00001E01 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
+		EEF4071C248E965500FC66CE /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				EED64E5F248BD16600001E01 /* VirtualTourist.xcdatamodeld */,
+				EEF4071C248E965500FC66CE /* DataController.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEF4071D248E965500FC66CE /* DataController.swift in Sources */,
 				EED64E61248BD16600001E01 /* VirtualTourist.xcdatamodeld in Sources */,
 				EED64E5B248BD16600001E01 /* TravelLocationsMapViewController.swift in Sources */,
 				EED64E57248BD16600001E01 /* AppDelegate.swift in Sources */,
