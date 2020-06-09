@@ -20,16 +20,14 @@ class TravelLocationsMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupMapView()
+        setupFetchedResultsController()
+        setupGestureRecognizer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        
-        setupMapView()
-        setupFetchedResultsController()
-        setupGestureRecognizer()
     }
     
     fileprivate func setupMapView() {
@@ -59,13 +57,16 @@ class TravelLocationsMapViewController: UIViewController {
     }
     
     fileprivate func loadPins() {
-        var annotations: [MKPointAnnotation] = []
-        for pin in pins {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-            annotations.append(annotation)
+        if pins.count > 0 {
+            var annotations: [MKPointAnnotation] = []
+            for index in 0...(pins.count - 1) {
+                let annotation = MKPointAnnotation()
+                annotation.title = String(index)
+                annotation.coordinate = CLLocationCoordinate2D(latitude: pins[index].latitude, longitude: pins[index].longitude)
+                annotations.append(annotation)
+            }
+            mapView.addAnnotations(annotations)
         }
-        mapView.addAnnotations(annotations)
     }
     
     @objc func addPin(gestureRecognizer: UITapGestureRecognizer) {
@@ -80,8 +81,11 @@ class TravelLocationsMapViewController: UIViewController {
                 try dataController.save()
                 // Add annotation on map
                 let annotation = MKPointAnnotation()
+                annotation.title = String(pins.count)
                 annotation.coordinate = coordinate
                 mapView.addAnnotation(annotation)
+                // Add to pins array for index referencing
+                pins.append(pin)
             } catch {
                 fatalError("New pin could not be saved: \(error.localizedDescription)")
             }
@@ -102,6 +106,15 @@ extension TravelLocationsMapViewController: MKMapViewDelegate {
             pinView?.annotation = annotation
         }
         return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let photoAlbumViewController = storyboard?.instantiateViewController(withIdentifier: "PhotoAlbumViewController") as! PhotoAlbumViewController
+        let index = Int((view.annotation?.title)!!)!
+        photoAlbumViewController.pin = pins[index]
+        photoAlbumViewController.dataController = dataController
+        navigationController?.pushViewController(photoAlbumViewController, animated: true)
+        mapView.deselectAnnotation(view.annotation, animated: false)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

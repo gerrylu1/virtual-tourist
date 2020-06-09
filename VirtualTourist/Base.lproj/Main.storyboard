@@ -60,7 +60,7 @@
         <!--Photo Album View Controller-->
         <scene sceneID="dZ0-K2-3Hm">
             <objects>
-                <viewController id="7ay-Nn-SEL" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoAlbumViewController" id="7ay-Nn-SEL" customClass="PhotoAlbumViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ftz-VI-2j4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -81,6 +81,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="KJl-Xa-qjV"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="7ay-Nn-SEL" id="ptA-wH-K43"/>
+                                        </connections>
                                     </mapView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CkH-a9-JKD">
                                         <rect key="frame" x="0.0" y="150" width="414" height="619"/>
@@ -118,6 +121,9 @@
                         <viewLayoutGuide key="safeArea" id="fu2-ax-yLc"/>
                     </view>
                     <navigationItem key="navigationItem" id="nSG-nz-c3U"/>
+                    <connections>
+                        <outlet property="mapView" destination="jYT-3c-b2K" id="Krz-Fg-z0e"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Bh-Rx-dRn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
