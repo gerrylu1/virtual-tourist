@@ -66,14 +66,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-Xc-rOA">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Gvr-1H-SUq"/>
-                                    <barButtonItem title="New Collection" id="P0J-ot-TUB"/>
+                                    <barButtonItem enabled="NO" title="New Collection" id="P0J-ot-TUB"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="OWo-Qi-70L"/>
                                 </items>
                             </toolbar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Zjp-cq-Xw3">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Zjp-cq-Xw3">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jYT-3c-b2K">
@@ -86,16 +86,16 @@
                                         </connections>
                                     </mapView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CkH-a9-JKD">
-                                        <rect key="frame" x="0.0" y="150" width="414" height="619"/>
+                                        <rect key="frame" x="0.0" y="155" width="414" height="614"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="STL-MM-WRi">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="STL-MM-WRi">
                                             <size key="itemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="THA-5O-1r8">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="THA-5O-1r8" customClass="ImageCell" customModule="VirtualTourist" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6Ny-sm-i1I">
@@ -104,6 +104,10 @@
                                                 </collectionViewCellContentView>
                                             </collectionViewCell>
                                         </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="7ay-Nn-SEL" id="gc6-MY-lnk"/>
+                                            <outlet property="delegate" destination="7ay-Nn-SEL" id="kjQ-kn-EcM"/>
+                                        </connections>
                                     </collectionView>
                                 </subviews>
                             </stackView>
@@ -111,7 +115,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Zjp-cq-Xw3" firstAttribute="leading" secondItem="fu2-ax-yLc" secondAttribute="leading" id="COW-su-o5j"/>
-                            <constraint firstItem="Zjp-cq-Xw3" firstAttribute="bottom" secondItem="Vhh-Xc-rOA" secondAttribute="top" id="N06-Uo-Dc5"/>
+                            <constraint firstItem="Zjp-cq-Xw3" firstAttribute="bottom" secondItem="Vhh-Xc-rOA" secondAttribute="top" constant="-5" id="N06-Uo-Dc5"/>
                             <constraint firstItem="fu2-ax-yLc" firstAttribute="trailing" secondItem="Zjp-cq-Xw3" secondAttribute="trailing" id="QZr-Tl-Sot"/>
                             <constraint firstItem="Vhh-Xc-rOA" firstAttribute="bottom" secondItem="fu2-ax-yLc" secondAttribute="bottom" id="R9X-ao-dJZ"/>
                             <constraint firstItem="Zjp-cq-Xw3" firstAttribute="top" secondItem="fu2-ax-yLc" secondAttribute="top" id="aN1-AV-XFH"/>
@@ -122,6 +126,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="nSG-nz-c3U"/>
                     <connections>
+                        <outlet property="collectionView" destination="CkH-a9-JKD" id="Uj3-Fq-Ylz"/>
+                        <outlet property="flowLayout" destination="STL-MM-WRi" id="a7F-q9-sjR"/>
                         <outlet property="mapView" destination="jYT-3c-b2K" id="Krz-Fg-z0e"/>
                     </connections>
                 </viewController>
