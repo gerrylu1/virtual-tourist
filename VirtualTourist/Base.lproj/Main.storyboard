@@ -66,7 +66,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vhh-Xc-rOA">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Gvr-1H-SUq"/>
                                     <barButtonItem enabled="NO" title="New Collection" id="P0J-ot-TUB"/>
@@ -74,7 +74,7 @@
                                 </items>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Zjp-cq-Xw3">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="764"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jYT-3c-b2K">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -86,7 +86,7 @@
                                         </connections>
                                     </mapView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CkH-a9-JKD">
-                                        <rect key="frame" x="0.0" y="155" width="414" height="614"/>
+                                        <rect key="frame" x="0.0" y="155" width="414" height="609"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="STL-MM-WRi">
                                             <size key="itemSize" width="128" height="128"/>
@@ -111,6 +111,12 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Images" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCW-ku-xvz">
+                                <rect key="frame" x="160.5" y="264" width="93.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -120,7 +126,9 @@
                             <constraint firstItem="Vhh-Xc-rOA" firstAttribute="bottom" secondItem="fu2-ax-yLc" secondAttribute="bottom" id="R9X-ao-dJZ"/>
                             <constraint firstItem="Zjp-cq-Xw3" firstAttribute="top" secondItem="fu2-ax-yLc" secondAttribute="top" id="aN1-AV-XFH"/>
                             <constraint firstItem="Vhh-Xc-rOA" firstAttribute="trailing" secondItem="fu2-ax-yLc" secondAttribute="trailing" id="bla-J4-0Q8"/>
+                            <constraint firstItem="MCW-ku-xvz" firstAttribute="centerX" secondItem="ftz-VI-2j4" secondAttribute="centerX" id="dIh-VG-pdC"/>
                             <constraint firstItem="Vhh-Xc-rOA" firstAttribute="leading" secondItem="fu2-ax-yLc" secondAttribute="leading" id="lTL-yF-AHG"/>
+                            <constraint firstItem="MCW-ku-xvz" firstAttribute="top" secondItem="fu2-ax-yLc" secondAttribute="top" constant="220" id="sDE-na-YU1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fu2-ax-yLc"/>
                     </view>
@@ -129,11 +137,13 @@
                         <outlet property="collectionView" destination="CkH-a9-JKD" id="Uj3-Fq-Ylz"/>
                         <outlet property="flowLayout" destination="STL-MM-WRi" id="a7F-q9-sjR"/>
                         <outlet property="mapView" destination="jYT-3c-b2K" id="Krz-Fg-z0e"/>
+                        <outlet property="newCollectionBarButton" destination="P0J-ot-TUB" id="p85-0G-gpA"/>
+                        <outlet property="noImagesLabel" destination="MCW-ku-xvz" id="0tS-kC-IbA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Bh-Rx-dRn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="823" y="138"/>
+            <point key="canvasLocation" x="821.73913043478262" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>

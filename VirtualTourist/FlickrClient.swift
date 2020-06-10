@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FlickrClient {
     
@@ -41,6 +42,23 @@ class FlickrClient {
             }
             completion(responseObject.photos, nil)
         }
+    }
+    
+    class func getPhotoImage(id: String, farmId: String, serverId: String, secret: String, completion: @escaping (UIImage?, Error?) -> Void) {
+        let url = EndPoint.getPhotoSourceURL(id: id, farmId: farmId, serverId: serverId, secret: secret).url
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
+                return
+            }
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                completion(image, nil)
+            }
+        }
+        task.resume()
     }
     
     class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> Void {

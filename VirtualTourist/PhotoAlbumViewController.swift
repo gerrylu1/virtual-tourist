@@ -15,6 +15,8 @@ class PhotoAlbumViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var newCollectionBarButton: UIBarButtonItem!
+    @IBOutlet weak var noImagesLabel: UILabel!
     
     var dataController: DataController!
     var fetchedResultsController: NSFetchedResultsController<Photo>!
@@ -22,8 +24,14 @@ class PhotoAlbumViewController: UIViewController {
     var pin: Pin!
     var page = 1
     
+    var imagesToBeDisplayed = 0
+    var imagesToBeDownloaded = 0
+    
     // set the number of photos to download if available for each collection
     let perPage = 25
+    
+    // set the compression quality for converting downloaded images to data for storing
+    let compressionQuality: CGFloat = 0.7
     
     // set the desired layout for collection view
     let approximateDimensionForCellsInPhone:Int = 120
@@ -88,26 +96,28 @@ class PhotoAlbumViewController: UIViewController {
     }
     
     fileprivate func getPhotoCollection() {
-        FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: page, perPage: perPage) { (photoList, error) in
-            guard let photoList = photoList else {
-                print(error?.localizedDescription)
-                return
-            }
-            // TODO: update attribute pages in data model Pin
+        FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: page, perPage: perPage, completion: handlePhotoSearchResponse(photoList:error:))
+    }
+    
+    fileprivate func handlePhotoSearchResponse(photoList: PhotoList?, error: Error?) {
+        guard let photoList = photoList else {
+            print(error?.localizedDescription)
+            return
+        }
+        // TODO: update attribute pages in data model Pin
+        if photoList.photo.count > 0 {
             for photo in photoList.photo {
-                let newPhoto = Photo(context: self.dataController.viewContext)
+                let newPhoto = Photo(context: dataController.viewContext)
                 newPhoto.id = photo.id
                 newPhoto.farmId = String(photo.farm)
                 newPhoto.serverId = photo.server
                 newPhoto.secret = photo.secret
-                newPhoto.pin = self.pin
+                newPhoto.pin = pin
             }
-            do {
-                try self.fetchedResultsController.performFetch()
-            } catch {
-                fatalError("The fetch could not be performed: \(error.localizedDescription)")
-            }
-            self.collectionView.reloadData()
+            try? dataController.save()
+        } else {
+            noImagesLabel.isHidden = false
+            newCollectionBarButton.isEnabled = true
         }
     }
     
@@ -119,6 +129,8 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         let numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
         if numberOfObjects == 0 {
             getPhotoCollection()
+        } else {
+            imagesToBeDisplayed = numberOfObjects
         }
         return numberOfObjects
     }
@@ -128,8 +140,27 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         let photo = fetchedResultsController.object(at: indexPath)
         if let imageData = photo.image, let image = UIImage(data: imageData) {
             cell.setImage(image)
+            imagesToBeDisplayed -= 1
+            if imagesToBeDisplayed == 0 {
+                self.newCollectionBarButton.isEnabled = true
+            }
         } else {
             cell.setImage(UIImage(named: "PhotoPlaceholder")!)
+            imagesToBeDownloaded += 1
+            FlickrClient.getPhotoImage(id: photo.id!, farmId: photo.farmId!, serverId: photo.serverId!, secret: photo.secret!) { (image, error) in
+                guard let image = image else {
+                    print(error?.localizedDescription)
+                    return
+                }
+                DispatchQueue.global(qos: .utility).sync {
+                    photo.image = image.jpegData(compressionQuality: self.compressionQuality)
+                    self.imagesToBeDownloaded -= 1
+                    if self.imagesToBeDownloaded == 0 {
+                        try? self.dataController.save()
+                        self.newCollectionBarButton.isEnabled = true
+                    }
+                }
+            }
         }
         return cell
     }
@@ -137,6 +168,15 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
 }
 
 extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert: collectionView.insertItems(at: [newIndexPath!])
+        case .delete: collectionView.deleteItems(at: [indexPath!])
+        case .update: collectionView.reloadItems(at: [indexPath!])
+        default: fatalError("Invalid change type in controller(_:didChange:at:for:newIndexPath:). Only .insert and .delete should be possible.")
+        }
+    }
     
 }
 
