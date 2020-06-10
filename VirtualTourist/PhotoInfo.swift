@@ -13,9 +13,9 @@ struct PhotoInfo: Codable {
     let owner: String
     let secret: String
     let server: String
-    let farm: String
+    let farm: Int
     let title: String
-    let ispublic: Bool
-    let isfriend: Bool
-    let isfamily: Bool
+    let ispublic: Int
+    let isfriend: Int
+    let isfamily: Int
 }

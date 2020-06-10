@@ -20,6 +20,10 @@ class PhotoAlbumViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<Photo>!
     
     var pin: Pin!
+    var page = 1
+    
+    // set the number of photos to download if available for each collection
+    let perPage = 25
     
     // set the desired layout for collection view
     let approximateDimensionForCellsInPhone:Int = 120
@@ -83,12 +87,40 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
     
+    fileprivate func getPhotoCollection() {
+        FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: page, perPage: perPage) { (photoList, error) in
+            guard let photoList = photoList else {
+                print(error?.localizedDescription)
+                return
+            }
+            // TODO: update attribute pages in data model Pin
+            for photo in photoList.photo {
+                let newPhoto = Photo(context: self.dataController.viewContext)
+                newPhoto.id = photo.id
+                newPhoto.farmId = String(photo.farm)
+                newPhoto.serverId = photo.server
+                newPhoto.secret = photo.secret
+                newPhoto.pin = self.pin
+            }
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {
+                fatalError("The fetch could not be performed: \(error.localizedDescription)")
+            }
+            self.collectionView.reloadData()
+        }
+    }
+    
 }
 
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        let numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        if numberOfObjects == 0 {
+            getPhotoCollection()
+        }
+        return numberOfObjects
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

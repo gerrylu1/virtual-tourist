@@ -10,4 +10,5 @@ import Foundation
 
 struct PhotoSearchResponse: Codable {
     let photos: PhotoList
+    let stat: String
 }

@@ -43,7 +43,7 @@ class FlickrClient {
         }
     }
     
-    @discardableResult class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, skipFirst5Characters: Bool = false, completion: @escaping (ResponseType?, Error?) -> Void) -> URLSessionTask {
+    class func taskForGETRequest<ResponseType: Decodable>(url: URL, responseType: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) -> Void {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             parseData(responseType: ResponseType.self, data: data, error: error) { (responseObject, error) in
                 DispatchQueue.main.async {
@@ -52,7 +52,6 @@ class FlickrClient {
             }
         }
         task.resume()
-        return task
     }
     
     class func parseData<ResponseType: Decodable>(responseType: ResponseType.Type, data: Data?, error: Error?, completion: @escaping (ResponseType?, Error?) -> Void) {
