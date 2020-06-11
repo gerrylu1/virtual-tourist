@@ -137,12 +137,13 @@ class PhotoAlbumViewController: UIViewController {
             try? dataController.save()
             numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
         }
+        noImagesLabel.isHidden = true
         FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: Int(pin.page), perPage: perPage, completion: handlePhotoSearchResponse(photoList:error:))
     }
     
     fileprivate func handlePhotoSearchResponse(photoList: PhotoList?, error: Error?) {
         guard let photoList = photoList else {
-            print(error?.localizedDescription)
+            showAlert(title: "Downloading Photos Failed", message: error?.localizedDescription, on: self)
             return
         }
         pin.pages = Int64(photoList.pages)
@@ -163,7 +164,11 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
     
-    @IBAction func newCollection(_ sender: Any) {
+    @IBAction func newCollectionBarButtonTapped(_ sender: Any) {
+        showAlertOKCancel(title: "New Collection", message: "Fetching a new collection will remove all photos in this album, continue?", on: self, completion: handleNewCollectionRequest)
+    }
+    
+    fileprivate func handleNewCollectionRequest() {
         newCollectionBarButton.isEnabled = false
         if pin.page < pin.pages {
             pin.page += 1
@@ -193,9 +198,11 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = fetchedResultsController.object(at: indexPath)
-        dataController.viewContext.delete(photo)
-        try? dataController.save()
+        showAlertOnDelete(title: "Delete Photo", message: "Are you sure you want to delete this photo?", on: self) {
+            let photo = self.fetchedResultsController.object(at: indexPath)
+            self.dataController.viewContext.delete(photo)
+            try? self.dataController.save()
+        }
     }
     
 }

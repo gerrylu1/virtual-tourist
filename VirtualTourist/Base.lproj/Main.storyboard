@@ -71,7 +71,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Gvr-1H-SUq"/>
                                     <barButtonItem enabled="NO" title="New Collection" id="P0J-ot-TUB">
                                         <connections>
-                                            <action selector="newCollection:" destination="7ay-Nn-SEL" id="IhI-TZ-tfX"/>
+                                            <action selector="newCollectionBarButtonTapped:" destination="7ay-Nn-SEL" id="b3A-AF-Ong"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="OWo-Qi-70L"/>

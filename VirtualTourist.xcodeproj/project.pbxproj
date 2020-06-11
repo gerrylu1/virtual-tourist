@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE1DD9432492315B005608B9 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1DD9422492315B005608B9 /* UIViewController+Extensions.swift */; };
 		EE34F30B248FABC900A5CCB3 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE34F30A248FABC900A5CCB3 /* Secrets.swift */; };
 		EE390661248D2F73006E376E /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE390660248D2F73006E376E /* MapRegion.swift */; };
 		EE7D35CF248F73990074779D /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35CE248F73990074779D /* FlickrClient.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE1DD9422492315B005608B9 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		EE34F30A248FABC900A5CCB3 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		EE390660248D2F73006E376E /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		EE7D35CE248F73990074779D /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				EED64E58248BD16600001E01 /* SceneDelegate.swift */,
 				EED64E5A248BD16600001E01 /* TravelLocationsMapViewController.swift */,
 				EED64E6D248BDAAA00001E01 /* PhotoAlbumViewController.swift */,
+				EE1DD9422492315B005608B9 /* UIViewController+Extensions.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEF4071D248E965500FC66CE /* DataController.swift in Sources */,
+				EE1DD9432492315B005608B9 /* UIViewController+Extensions.swift in Sources */,
 				EE34F30B248FABC900A5CCB3 /* Secrets.swift in Sources */,
 				EED64E61248BD16600001E01 /* VirtualTourist.xcdatamodeld in Sources */,
 				EEC88D8C2490DEEA00E5EE24 /* PhotoInfo.swift in Sources */,
