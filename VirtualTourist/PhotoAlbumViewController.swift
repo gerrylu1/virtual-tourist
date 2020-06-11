@@ -31,7 +31,7 @@ class PhotoAlbumViewController: UIViewController {
     
     // set the desired layout for collection view
     let approximateDimensionForCellsInPhone:Int = 120
-    let approximateDimensionForCellsInPad:Int = 300
+    let approximateDimensionForCellsInPad:Int = 180
     let spacingForCells:CGFloat = 3.0
     
     var approximateDimensionForCells:Int {
