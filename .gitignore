@@ -1,5 +1,6 @@
 VirtualTourist/Secrets.swift
 ._VirtualTourist.xcodeproj
+._README.md
 VirtualTourist/Base.lproj/._Main.storyboard
 VirtualTourist.xcodeproj/._project.pbxproj
 VirtualTourist.xcodeproj/._project.xcworkspace
@@ -21,3 +22,4 @@ VirtualTourist/._FailureResponse.swift
 VirtualTourist/._PhotoInfo.swift
 VirtualTourist/._PhotoList.swift
 VirtualTourist/._PhotoSearchResponse.swift
+VirtualTourist/._UIViewController+Extensions.swift
