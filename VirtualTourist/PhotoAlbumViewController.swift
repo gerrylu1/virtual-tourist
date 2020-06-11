@@ -24,11 +24,8 @@ class PhotoAlbumViewController: UIViewController {
     var pin: Pin!
     var page = 1
     
-    var imagesToBeDisplayed = 0
-    var imagesToBeDownloaded = 0
-    
     // set the number of photos to download if available for each collection
-    let perPage = 25
+    let perPage = 30
     
     // set the compression quality for converting downloaded images to data for storing
     let compressionQuality: CGFloat = 0.7
@@ -57,6 +54,7 @@ class PhotoAlbumViewController: UIViewController {
         registerCollectionViewCells()
         flowLayoutAdjustment(width: collectionView.frame.size.width)
         loadPin()
+        checkStoredImages()
     }
     
     fileprivate func registerCollectionViewCells() {
@@ -95,6 +93,43 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
     
+    fileprivate func checkStoredImages() {
+        let numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        if numberOfObjects > 0 {
+            let imagesToBeDisplayed = numberOfObjects
+            var imagesToBeDownloaded = 0
+            var imagesInStorage = 0
+            for index in 0...(numberOfObjects - 1) {
+                let photo = fetchedResultsController.sections?[0].objects?[index] as! Photo
+                if photo.image != nil {
+                    imagesInStorage += 1
+                } else {
+                    imagesToBeDownloaded += 1
+                    FlickrClient.getPhotoImage(id: photo.id!, farmId: photo.farmId!, serverId: photo.serverId!, secret: photo.secret!) { (image, error) in
+                        // "if" is used here instead of "guard" since "imagesToBeDownloaded" still need to be counted regardless of the result of the download
+                        if let image = image {
+                            DispatchQueue.global(qos: .utility).sync {
+                                photo.image = image.jpegData(compressionQuality: self.compressionQuality)
+                                try? self.dataController.save()
+                            }
+                        } else {
+                            // fail silently
+                        }
+                        imagesToBeDownloaded -= 1
+                        if imagesToBeDownloaded == 0 {
+                            self.newCollectionBarButton.isEnabled = true
+                        }
+                    }
+                }
+            }
+            if imagesInStorage == imagesToBeDisplayed {
+                newCollectionBarButton.isEnabled = true
+            }
+        } else {
+            getPhotoCollection()
+        }
+    }
+    
     fileprivate func getPhotoCollection() {
         FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: page, perPage: perPage, completion: handlePhotoSearchResponse(photoList:error:))
     }
@@ -115,6 +150,7 @@ class PhotoAlbumViewController: UIViewController {
                 newPhoto.pin = pin
             }
             try? dataController.save()
+            checkStoredImages()
         } else {
             noImagesLabel.isHidden = false
             newCollectionBarButton.isEnabled = true
@@ -126,13 +162,7 @@ class PhotoAlbumViewController: UIViewController {
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
-        if numberOfObjects == 0 {
-            getPhotoCollection()
-        } else {
-            imagesToBeDisplayed = numberOfObjects
-        }
-        return numberOfObjects
+        return fetchedResultsController.sections?[0].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,27 +170,8 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         let photo = fetchedResultsController.object(at: indexPath)
         if let imageData = photo.image, let image = UIImage(data: imageData) {
             cell.setImage(image)
-            imagesToBeDisplayed -= 1
-            if imagesToBeDisplayed == 0 {
-                self.newCollectionBarButton.isEnabled = true
-            }
         } else {
             cell.setImage(UIImage(named: "PhotoPlaceholder")!)
-            imagesToBeDownloaded += 1
-            FlickrClient.getPhotoImage(id: photo.id!, farmId: photo.farmId!, serverId: photo.serverId!, secret: photo.secret!) { (image, error) in
-                guard let image = image else {
-                    print(error?.localizedDescription)
-                    return
-                }
-                DispatchQueue.global(qos: .utility).sync {
-                    photo.image = image.jpegData(compressionQuality: self.compressionQuality)
-                    self.imagesToBeDownloaded -= 1
-                    if self.imagesToBeDownloaded == 0 {
-                        try? self.dataController.save()
-                        self.newCollectionBarButton.isEnabled = true
-                    }
-                }
-            }
         }
         return cell
     }
@@ -174,7 +185,7 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
         case .insert: collectionView.insertItems(at: [newIndexPath!])
         case .delete: collectionView.deleteItems(at: [indexPath!])
         case .update: collectionView.reloadItems(at: [indexPath!])
-        default: fatalError("Invalid change type in controller(_:didChange:at:for:newIndexPath:). Only .insert and .delete should be possible.")
+        default: fatalError("Invalid change type in controller(_:didChange:at:for:newIndexPath:). Only .insert, .update and .delete should be possible.")
         }
     }
     
