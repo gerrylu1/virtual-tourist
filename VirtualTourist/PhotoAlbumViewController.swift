@@ -22,7 +22,6 @@ class PhotoAlbumViewController: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<Photo>!
     
     var pin: Pin!
-    var page = 1
     
     // set the number of photos to download if available for each collection
     let perPage = 30
@@ -131,7 +130,14 @@ class PhotoAlbumViewController: UIViewController {
     }
     
     fileprivate func getPhotoCollection() {
-        FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: page, perPage: perPage, completion: handlePhotoSearchResponse(photoList:error:))
+        var numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        while numberOfObjects > 0 {
+            let photo = fetchedResultsController.sections?[0].objects?[0] as! Photo
+            dataController.viewContext.delete(photo)
+            try? dataController.save()
+            numberOfObjects = fetchedResultsController.sections?[0].numberOfObjects ?? 0
+        }
+        FlickrClient.searchPhotosByCoordinate(latitude: pin.latitude, longitude: pin.longitude, page: Int(pin.page), perPage: perPage, completion: handlePhotoSearchResponse(photoList:error:))
     }
     
     fileprivate func handlePhotoSearchResponse(photoList: PhotoList?, error: Error?) {
@@ -139,7 +145,7 @@ class PhotoAlbumViewController: UIViewController {
             print(error?.localizedDescription)
             return
         }
-        // TODO: update attribute pages in data model Pin
+        pin.pages = Int64(photoList.pages)
         if photoList.photo.count > 0 {
             for photo in photoList.photo {
                 let newPhoto = Photo(context: dataController.viewContext)
@@ -155,6 +161,16 @@ class PhotoAlbumViewController: UIViewController {
             noImagesLabel.isHidden = false
             newCollectionBarButton.isEnabled = true
         }
+    }
+    
+    @IBAction func newCollection(_ sender: Any) {
+        newCollectionBarButton.isEnabled = false
+        if pin.page < pin.pages {
+            pin.page += 1
+        } else {
+            pin.page = 1
+        }
+        getPhotoCollection()
     }
     
 }
