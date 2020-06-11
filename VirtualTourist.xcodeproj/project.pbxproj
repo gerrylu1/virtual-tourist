@@ -30,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		EE1DD9422492315B005608B9 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		EE1DD94424923F88005608B9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EE34F30A248FABC900A5CCB3 /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		EE390660248D2F73006E376E /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
 		EE7D35CE248F73990074779D /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		EED64E4A248BD16600001E01 = {
 			isa = PBXGroup;
 			children = (
+				EE1DD94424923F88005608B9 /* README.md */,
 				EED64E55248BD16600001E01 /* VirtualTourist */,
 				EED64E54248BD16600001E01 /* Products */,
 			);
