@@ -176,6 +176,12 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photo = fetchedResultsController.object(at: indexPath)
+        dataController.viewContext.delete(photo)
+        try? dataController.save()
+    }
+    
 }
 
 extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
