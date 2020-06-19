@@ -1,25 +1,87 @@
+# macOS files
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Xcode
+
+## User settings
+xcuserdata/
+
+## Gcc Patch
+/*.gcno
+
+## Obj-C/Swift specific
+*.hmap
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+#
+# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
+# Packages/
+# Package.pins
+# Package.resolved
+# *.xcodeproj
+#
+# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
+# hence it is not needed unless you have added a package configuration file to your project
+# .swiftpm
+
+.build/
+
+# CocoaPods
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# Pods/
+#
+# Add this line if you want to avoid checking in source code from the Xcode workspace
+# *.xcworkspace
+
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build/
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo.
+# Instead, use fastlane to re-generate the screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Code Injection
+#
+# After new code Injection tools there's a generated folder /iOSInjectionProject
+# https://github.com/johnno1962/injectionforxcode
+
+iOSInjectionProject/
+
+# Secrets
 VirtualTourist/Secrets.swift
-._VirtualTourist.xcodeproj
-._README.md
-VirtualTourist/Base.lproj/._Main.storyboard
-VirtualTourist.xcodeproj/._project.pbxproj
-VirtualTourist.xcodeproj/._project.xcworkspace
-VirtualTourist.xcodeproj/project.xcworkspace/xcuserdata/
-VirtualTourist.xcodeproj/xcshareddata/
-VirtualTourist.xcodeproj/xcuserdata/gerrylow.xcuserdatad/xcdebugger/
-VirtualTourist/._DataController.swift
-VirtualTourist/._FlickrClient.swift
-VirtualTourist/._Info.plist
-VirtualTourist/._MapRegion.swift
-VirtualTourist/._PhotoAlbumViewController.swift
-VirtualTourist/._TravelLocationsMapViewController.swift
-VirtualTourist/._Secrets.swift
-VirtualTourist/VirtualTourist.xcdatamodeld/._VirtualTourist.xcdatamodel
-VirtualTourist/._ImageCell.swift
-VirtualTourist/._ImageCell.xib
-VirtualTourist/Assets.xcassets/PhotoPlaceholder.imageset/._Contents.json
-VirtualTourist/._FailureResponse.swift
-VirtualTourist/._PhotoInfo.swift
-VirtualTourist/._PhotoList.swift
-VirtualTourist/._PhotoSearchResponse.swift
-VirtualTourist/._UIViewController+Extensions.swift
